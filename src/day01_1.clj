@@ -1,11 +1,11 @@
 (ns day01-1 
   (:require [clojure.string :as str]))
 
-(defn getInput []
+(defn get-input []
   (str/split-lines (slurp "data/day01.txt")))
 
-(defn getCalibration [s]
+(defn get-calibration [s]
   (def matches (re-seq #"\d" s))
   (Integer/parseInt (str (first matches) (last matches))))
 
-(apply + (map getCalibration (getInput)))
+(apply + (map get-calibration (get-input)))
