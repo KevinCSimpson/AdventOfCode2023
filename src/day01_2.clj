@@ -18,15 +18,15 @@
     s))
 
 (defn find-digit [s fir]
-  (def pat (re-pattern (str "^.*"
-                            (if fir "?" "")
-                            "(one|two|three|four|five|six|seven|eight|nine|\\d).*"
-                            (if (not fir) "?" "")
-                            "$")))
-  (def mat (re-matcher pat s)) 
-  (string-to-digit(nth (re-find mat) 1)))
+  (let [pat (re-pattern (str "^.*"
+                             (if fir "?" "")
+                             "(one|two|three|four|five|six|seven|eight|nine|\\d).*"
+                             (if (not fir) "?" "")
+                             "$"))
+        mat (re-matcher pat s)] 
+    (string-to-digit(nth (re-find mat) 1))))
 
 (defn get-calibration [s]
-  (Integer/parseInt (str (find-digit s true) (find-digit s false))))
+  (parse-long (str (find-digit s true) (find-digit s false))))
 
 (apply + (map get-calibration (get-input)))
