@@ -1,4 +1,4 @@
-(ns day02-1 
+(ns day02 
   (:require [clojure.string :as str]))
 
 (defrecord cube-set [red green blue])
@@ -36,7 +36,16 @@
 (defn valid-games [gs]
   (remove #(not (valid-game? %)) gs))
 
-(defn solve []
+(defn solve-puzzle1 []
   (apply + (map #(:id %) (valid-games (map get-game (get-input))))))
 
-(solve)
+(defn game-power [g]
+  (let [min-red (apply max (map #(:red %) (:cube-sets g)))
+        min-green  (apply max (map #(:green %) (:cube-sets g)))
+        min-blue (apply max (map #(:blue %) (:cube-sets g)))]
+    (* min-red min-green min-blue)))
+
+(defn solve-puzzle2 []
+  (apply + (map game-power (map get-game (get-input)))))
+
+(solve-puzzle2)
