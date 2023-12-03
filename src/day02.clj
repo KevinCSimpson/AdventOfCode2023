@@ -40,12 +40,14 @@
   (apply + (map #(:id %) (valid-games (map get-game (get-input))))))
 
 (defn game-power [g]
-  (let [min-red (apply max (map #(:red %) (:cube-sets g)))
-        min-green  (apply max (map #(:green %) (:cube-sets g)))
-        min-blue (apply max (map #(:blue %) (:cube-sets g)))]
+  (let [cs (:cube-sets g)
+        min-red (apply max (map #(:red %) cs))
+        min-green  (apply max (map #(:green %) cs))
+        min-blue (apply max (map #(:blue %) cs))]
     (* min-red min-green min-blue)))
 
 (defn solve-puzzle2 []
   (apply + (map game-power (map get-game (get-input)))))
 
-(solve-puzzle2)
+(println (str "puzzle 1: "(solve-puzzle1)))
+(println (str "puzzle 2: "(solve-puzzle2)))
